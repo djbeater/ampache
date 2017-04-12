@@ -354,7 +354,7 @@ $_SESSION['login'] = false;
             });
         </script>
 
-        <script type="text/javascript" src="http://utils.gradio.local/js/mustache.min.js" ></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" ></script>
 
 <script type="mustache/x-tmpl" id="checkUploadResult">
   {{#error}}
