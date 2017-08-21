@@ -60,6 +60,8 @@ $_SESSION['login'] = false;
         <link rel="stylesheet" href="<?php echo $web_path; ?>/modules/jquery-mediaTable/jquery.mediaTable.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $web_path; ?>/lib/components/datetimepicker/jquery.datetimepicker.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="<?php echo $web_path; ?>/lib/components/jQuery-contextMenu/dist/jquery.contextMenu.min.css" type="text/css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
+
         <script src="<?php echo $web_path; ?>/lib/components/jquery/jquery.min.js" language="javascript" type="text/javascript"></script>
         <script src="<?php echo $web_path; ?>/lib/components/jquery-ui/jquery-ui.min.js" language="javascript" type="text/javascript"></script>
         <script src="<?php echo $web_path; ?>/lib/components/prettyphoto/js/jquery.prettyPhoto.js" language="javascript" type="text/javascript"></script>
@@ -79,6 +81,7 @@ $_SESSION['login'] = false;
         <script src="<?php echo $web_path; ?>/lib/javascript/base.js" language="javascript" type="text/javascript"></script>
         <script src="<?php echo $web_path; ?>/lib/javascript/ajax.js" language="javascript" type="text/javascript"></script>
         <script src="<?php echo $web_path; ?>/lib/javascript/tools.js" language="javascript" type="text/javascript"></script>
+        <script src="https://unpkg.com/notie"></script>
         <script src="<?php echo $web_path; ?>/lib/javascript/tools-extend.js" language="javascript" type="text/javascript"></script>
 
         <script type="text/javascript" charset="utf-8">
@@ -291,7 +294,7 @@ $_SESSION['login'] = false;
                 }
             });
         </script>
-        
+
         <?php if (AmpConfig::get('cookie_disclaimer') && !isset($_COOKIE['cookie_disclaimer'])) {
             ?>
         <script type="text/javascript" language="javascript">
@@ -309,7 +312,7 @@ $_SESSION['login'] = false;
         </script>
         <?php
         } ?>
-        
+
         <?php if (AmpConfig::get('libitem_contextmenu')) {
             ?>
         <script type="text/javascript" language="javascript">
@@ -318,14 +321,14 @@ $_SESSION['login'] = false;
                 var iinfo = item.attr('id').split('_', 2);
                 var object_type = iinfo[0];
                 var object_id = iinfo[1];
-                
+
                 if (action !== undefined && action !== '') {
                     ajaxPut(jsAjaxUrl + action + '&object_type=' + object_type + '&object_id=' + object_id);
                 } else {
                     showPlaylistDialog(this, object_type, object_id);
                 }
             }
-            
+
             $.contextMenu({
                 selector: ".libitem_menu",
                 items: {
@@ -339,7 +342,7 @@ $_SESSION['login'] = false;
         </script>
         <?php
         } ?>
-        
+
         <!-- rfc3514 implementation -->
         <div id="rfc3514" style="display:none;">0x0</div>
         <div id="notification" class="notification-out"><img src="<?php echo $web_path; ?>/images/icon_info.png" /><span id="notification-content"></span></div>
@@ -485,7 +488,7 @@ $_SESSION['login'] = false;
             <div id="ajax-loading">Loading . . .</div>
             <div id="util_div" style="display:none;"></div>
             <iframe name="util_iframe" id="util_iframe" style="display:none;" src="<?php echo $web_path; ?>/util.php"></iframe>
-            
+
             <div id="content" class="content-<?php echo AmpConfig::get('ui_fixed') ? (AmpConfig::get('topmenu') ? 'fixed-topmenu' : 'fixed') : 'float'; ?> <?php echo(($count_temp_playlist || AmpConfig::get('play_type') == 'localplay') ? '' : 'content-right-wild'); echo $isCollapsed ? ' content-left-wild' : ''; ?>">
 
                 <?php
@@ -496,7 +499,7 @@ $_SESSION['login'] = false;
                             echo '<br />';
                         }
                         $count_temp_playlist = count($GLOBALS['user']->playlist->get_items());
-                        
+
                         if (AmpConfig::get('int_config_version') != AmpConfig::get('config_version')) {
                             ?>
                             <div class="fatalerror">
