@@ -751,14 +751,6 @@ class Song extends database_object implements media, library_item
         } else {
             $where .= " AND `album`.`name` = ?";
             $params[] = $data['album'];
-            
-            if ($data['mb_artistid']) {
-                $where .= " AND `artist`.`mbid` = ?";
-                $params[] = $data['mb_artistid'];
-            } else {
-                $where .= " AND `artist`.`name` = ?";
-                $params[] = $data['artist'];
-            }
         }
         
         $sql .= $where . " LIMIT 1";
@@ -1093,11 +1085,11 @@ class Song extends database_object implements media, library_item
         $update_time = time();
 
         $sql = "UPDATE `song` SET `album` = ?, `year` = ?, `artist` = ?, " .
-            "`title` = ?, `bitrate` = ?, `rate` = ?, `mode` = ?, " .
+            "`title` = ?, `composer` = ?, `bitrate` = ?, `rate` = ?, `mode` = ?, " .
             "`size` = ?, `time` = ?, `track` = ?, `mbid` = ?, " .
             "`update_time` = ? WHERE `id` = ?";
 
-        Dba::write($sql, array($new_song->album, $new_song->year, $new_song->artist, $new_song->title, $new_song->bitrate, $new_song->rate,
+        Dba::write($sql, array($new_song->album, $new_song->year, $new_song->artist, $new_song->title, $new_song->composer, $new_song->bitrate, $new_song->rate,
             $new_song->mode, $new_song->size, $new_song->time, $new_song->track, $new_song->mbid, $update_time, $song_id));
 
         $sql = "UPDATE `song_data` SET `lyrics` = ?, `language` = ?, `comment` = ?, `replaygain_track_gain` = ?, `replaygain_track_peak` = ?, " .
