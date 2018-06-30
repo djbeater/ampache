@@ -185,8 +185,9 @@ class Subsonic_Api
                 $output = $callback . '(' . json_encode(self::xml2json($xml), JSON_PRETTY_PRINT) . ')';
             } else {
                 $xmlstr = $xml->asXml();
-                // Format xml output
-                $dom = new DOMDocument();
+                //clean illegal XML characters.
+                $xmlstr = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', '_', $xmlstr);               // Format xml output
+                $dom    = new DOMDocument();
                 $dom->loadXML($xmlstr);
                 $dom->formatOutput = true;
                 $output            = $dom->saveXML();
@@ -1282,7 +1283,7 @@ class Subsonic_Api
                 }
                 foreach ($albumId as $i) {
                     $aid   = Subsonic_XML_Data::getAmpacheId($i);
-                    $ids[] = array('id' => $aid, 'album');
+                    $ids[] = array('id' => $aid, 'type' => 'album');
                 }
             } else {
                 if ($artistId) {
@@ -1291,7 +1292,7 @@ class Subsonic_Api
                     }
                     foreach ($artistId as $i) {
                         $aid   = Subsonic_XML_Data::getAmpacheId($i);
-                        $ids[] = array('id' => $aid, 'artist');
+                        $ids[] = array('id' => $aid, 'type' => 'artist');
                     }
                 } else {
                     $r = Subsonic_XML_Data::createError(Subsonic_XML_Data::SSERROR_MISSINGPARAM);
